@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	// just for fun to generate a color
+	function hashCode(str) {
+	    var hash = 0;
+	    for (var i = 0; i < str.length; i++) {
+	       hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	    }
+	    return hash;
+	} 
+
+	function intToRGB(i){
+	    var c = (i & 0x00FFFFFF)
+	        .toString(16)
+	        .toUpperCase();
+
+	    return "00000".substring(0, 6 - c.length) + c;
+	}
+
+
+	$.getJSON("/points", function(users) {
+		var points = [];
+		var usernames = [];
+
+		console.log(JSON.stringify(users));
+
+		for (var userId in users) {
+			var chartValues = []
+			console.log(users[userId]["username"]);
+			if (users.hasOwnProperty(userId)) {
+				for (var i = 0; i < users[userId].points.length; i++) {
+					var point = users[userId].points[i];
+					chartValues.push({ x: new Date(point.date), y: point.points});
+				}
+			}
+			usernames.push(users[userId]["username"])
+			points.push(chartValues);
+		};
+		createChart(usernames, points);
+	});
+
+	// request json then do the stuff after
+
+	function createChart(usernames, points) {
+		console.log('---');
+		console.log(points[0]);
+		console.log(points[1]);
+		console.log("usernames: " + usernames);
+
+		var chart = new CanvasJS.Chart("chartContainer",
+		{
+
+			title:{
+				text: "Extreme Progression of Points",
+				fontSize: 30
+			},
+            animationEnabled: true,
+			axisX:{
+
+				gridColor: "Silver",
+				tickColor: "silver",
+				valueFormatString: "DD/MMM"
+
+			},                        
+            toolTip:{
+                shared:true
+            },
+			theme: "theme2",
+			axisY: {
+				gridColor: "Silver",
+				tickColor: "silver"
+			},
+			legend:{
+				verticalAlign: "center",
+				horizontalAlign: "right"
+			},
+			data: [],
+          legend:{
+            cursor:"pointer",
+            itemclick:function(e){
+              if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+              	e.dataSeries.visible = false;
+              }
+              else{
+                e.dataSeries.visible = true;
+              }
+              chart.render();
+            }
+          }
+		});
+
+		for (var i = 0; i < usernames.length; i++) {
+			chart.options.data.push({        
+					type: "line",
+					showInLegend: true,
+					lineThickness: 2,
+					name: usernames[i],
+					markerType: "square",
+					color: "#" + intToRGB(hashCode(usernames[i])),
+					dataPoints: points[i]
+			});
+		}
+
+		chart.render();
+	}
+</script>
+<script type="text/javascript" src="script/canvasjs.min.js"></script>
+</head>
+<body>
+	<div id="chartContainer" style="height: 300px; width: 100%;">
+	</div>
+</body>
+</html>
