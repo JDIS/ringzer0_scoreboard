@@ -1,10 +1,6 @@
 //Lets require/import the HTTP module
-var http = require('http');
-var dispatcher = require('httpdispatcher');
 var sqlite3 = require('sqlite3').verbose();
-var dict = require("dict");
 var async = require('async');
-var fs = require('fs');
 var express = require('express');
 var app = express();
 
@@ -12,7 +8,7 @@ var db = new sqlite3.Database('../ringzer0parser/scoreboard.sqlite');
 
 
 //Lets define a port we want to listen to
-const PORT=8080; 
+const PORT=8000; 
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
