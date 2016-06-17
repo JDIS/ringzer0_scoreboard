@@ -3,7 +3,7 @@
 
 <head>  
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script type="text/javascript" src="script/canvasjs.min.js"></script>
+    	<script type="text/javascript" src="script/canvasjs.min.js"></script>
 	<script type="text/javascript">
 
 	// just for fun to generate a color
@@ -28,11 +28,8 @@
 		var points = [];
 		var usernames = [];
 
-		console.log(JSON.stringify(users));
-
 		for (var userId in users) {
 			var chartValues = []
-			console.log(users[userId]["username"]);
 			if (users.hasOwnProperty(userId)) {
 				for (var i = 0; i < users[userId].points.length; i++) {
 					var point = users[userId].points[i];
@@ -48,11 +45,6 @@
 	// request json then do the stuff after
 
 	function createChart(usernames, points) {
-		console.log('---');
-		console.log(points[0]);
-		console.log(points[1]);
-		console.log("usernames: " + usernames);
-
 		var chart = new CanvasJS.Chart("chartContainer",
 		{
 
