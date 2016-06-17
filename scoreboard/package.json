@@ -1,0 +1,16 @@
+{
+  "name": "ringzer0-scoreboard",
+  "version": "1.0.0",
+  "description": "A scoreboard to show the evolution of points on Ringzer0",
+  "main": "scoreboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.2",
+    "express": "^4.14.0",
+    "sqlite3": "^3.1.4"
+  }
+}
