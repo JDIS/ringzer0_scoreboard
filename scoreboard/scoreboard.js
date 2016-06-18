@@ -4,7 +4,7 @@ var async = require('async');
 var express = require('express');
 var app = express();
 
-var db = new sqlite3.Database('../ringzer0parser/scoreboard.sqlite');
+var db = new sqlite3.Database('/home/jon/Projects/ringzer0_scoreboard/ringzer0parser/scoreboard.sqlite');
 
 
 //Lets define a port we want to listen to
@@ -66,15 +66,6 @@ app.get("/points", function(req, res) {
       });
     });
 });
-
-//Create a server
-// var server = http.createServer(handleRequest);
-
-// //Lets start our server
-// server.listen(PORT, function(){
-//     //Callback triggered when server is successfully listening. Hurray!
-//     console.log("Server listening on: http://localhost:%s", PORT);
-// });
 
 app.listen(PORT, function() {
     console.log("Express listening on: http://localhost:%s", PORT);
