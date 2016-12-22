@@ -19,6 +19,14 @@ $ sqlite3 scoreboard.db
 sqlite> INSERT INTO USER (user_id, name) VALUES (453456, "jon");
 ```
 
+### DB Backup
+
+Restore a db backup, i.e:
+
+```
+sqlite3 scoreboard.db < backup/scoreboard-2016-06-17.sql
+```
+
 ## Scraper 
 
 Running the parser.py will populate the database with the users in the USER table.
