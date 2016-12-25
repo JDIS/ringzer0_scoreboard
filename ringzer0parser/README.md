@@ -5,7 +5,7 @@
 Create the database using sqlite3.
 
 ```
-sqlite3 scoreboard.db < create_db.sql
+sqlite3 scoreboard.sqlite < create_db.sql
 ```
 
 
@@ -15,7 +15,7 @@ For example, to add jon, navigate to this jon person profile, i.e: `https://ring
 The user will be:
 
 ```sql
-$ sqlite3 scoreboard.db
+$ sqlite3 scoreboard.sqlite
 sqlite> INSERT INTO USER (user_id, name) VALUES (453456, "jon");
 ```
 
@@ -24,7 +24,7 @@ sqlite> INSERT INTO USER (user_id, name) VALUES (453456, "jon");
 Restore a db backup, i.e:
 
 ```
-sqlite3 scoreboard.db < backup/scoreboard-2016-06-17.sql
+sqlite3 scoreboard.sqlite < backup/scoreboard-2016-06-17.sql
 ```
 
 ## Scraper 
@@ -41,5 +41,5 @@ Add something like this at the bottom to run each night at 11h00 pm.
 
 ```
 # m h dom mon dow command
-0 23 * * * python /path/to/ringzer0_scoreboard/ringzer0parser/parser.py /path/to/scoreboard.db
+0 23 * * * python /path/to/ringzer0_scoreboard/ringzer0parser/parser.py /path/to/scoreboard.sqlite
 ```
