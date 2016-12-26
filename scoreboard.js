@@ -1,10 +1,12 @@
 //Lets require/import the HTTP module
-var sqlite3 = require('sqlite3').verbose();
-var async = require('async');
-var express = require('express');
-var app = express();
+const sqlite3 = require('sqlite3').verbose();
+const async = require('async');
+const express = require('express');
+const app = express();
+const parser = require('./parser.js');
 
-const db = new sqlite3.Database('../ringzer0parser/scoreboard.sqlite');
+const dbPath = './scoreboard.sqlite';
+const db = new sqlite3.Database(dbPath);
 
 //Lets define a port we want to listen to
 const PORT=8000;
@@ -56,3 +58,8 @@ app.get("/points", function(req, res) {
 app.listen(PORT, () => {
   console.log("Express listening on: http://localhost:%s", PORT);
 });
+
+parser.performForAllUsers(dbPath);
+setTimeout(() => {
+  parser.performForAllUsers(dbPath);
+}, 1000 * 60 * 60 * 24);
