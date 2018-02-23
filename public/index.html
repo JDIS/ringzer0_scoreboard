@@ -24,32 +24,36 @@
 	}
 
 
-	$.getJSON("/points", function(users) {
-		var points = [];
-		var usernames = [];
+	$.getJSON("/points", function(sites) {
+		for (var site in sites) {
+			var users = sites[site];
+			var points = [];
+			var usernames = [];
 
-		for (var userId in users) {
-			var chartValues = []
-			if (users.hasOwnProperty(userId)) {
-				for (var i = 0; i < users[userId].points.length; i++) {
-					var point = users[userId].points[i];
-					chartValues.push({ x: new Date(point.date), y: point.points});
+			for (var userId in users) {
+				var chartValues = []
+				if (users.hasOwnProperty(userId)) {
+					for (var i = 0; i < users[userId].points.length; i++) {
+						var point = users[userId].points[i];
+						chartValues.push({ x: new Date(point.date), y: point.points});
+					}
 				}
-			}
-			usernames.push(users[userId]["username"])
-			points.push(chartValues);
-		};
-		createChart(usernames, points);
+				usernames.push(users[userId]["username"])
+				points.push(chartValues);
+			};
+			createChart(usernames, points, site);
+		}
 	});
 
 	// request json then do the stuff after
 
-	function createChart(usernames, points) {
-		var chart = new CanvasJS.Chart("chartContainer",
+	function createChart(usernames, points, site) {
+		$(".chartContainer").append('<div id="chartContainer-' + site + '" style="height: 300px; width: 75%; margin: 3em auto;"></div>');
+		var chart = new CanvasJS.Chart("chartContainer-" + site,
 		{
 
 			title:{
-				text: "Extreme Progression of Points",
+				text: site,
 				fontSize: 30
 			},
             animationEnabled: true,
@@ -104,6 +108,6 @@
 </script>
 </head>
 <body> 
-	<div id="chartContainer" style="height: 300px; width: 75%; margin: 3em auto;"></div>
+	<div class="chartContainer"></div>
 </body>
 </html>

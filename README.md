@@ -23,7 +23,10 @@ The user will be:
 
 ```sql
 $ sqlite3 scoreboard.db
-sqlite> INSERT INTO USER (user_id, name) VALUES (453456, "jon");
+sqlite> SELECT * from SITE;
+1|ringzer0team|https://ringzer0team.com/
+2|pwnable.tw|https://pwnable.tw/
+sqlite> INSERT INTO USER (site_id, site_user_id, name) VALUES (1, 453456, "jon");
 ```
 
 ### DB Backup
@@ -54,7 +57,7 @@ The server connects to the db with a hardcoded string (how inconvenient, we shou
 You will want to change this path to point to your scoreboard.db.
 
 ```js
-var db = new sqlite3.Database('/home/jon/Projects/ringzer0_scoreboard/ringzer0parser/scoreboard.sqlite');
+var db = new sqlite3.Database('/home/jon/Projects/ringzer0_scoreboard/ringzer0parser/scoreboard.db');
 ```
 
 The server will be hosted on `port 8000` by default (maybe it should be a program argument):
