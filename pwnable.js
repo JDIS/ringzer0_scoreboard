@@ -37,6 +37,6 @@ module.exports = {
     });
   },
   parse: function(body) {
-    return body("div").eq(16).text(); // wow
+    return body("div:contains(Score)").eq(3).next().text();
   }
 }

@@ -59,6 +59,6 @@ async function main() {
 main();
 
 parser.performForAllUsers(dbPath);
-setTimeout(() => {
+setInterval(() => {
   parser.performForAllUsers(dbPath);
 }, 1000 * 60 * 60 * 24);
